@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/3.0.0-rc.5/web3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Dolphins Mint</title>
+</head>
+<body style="background:lightblue">
+    <style>
+        .meta-gray {
+            -webkit-filter: grayscale(1);
+        }
+        .meta-normal {
+            -webkit-filter: grayscale(0);
+        }
+    </style>
+
+    <div class="container">
+        <div style="margin-top: 30px;" class="row text-center">
+            <div class="col-md-12">
+                <h2>Degenerate Dolphins</h2>
+            </div>            
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12">
+                <img id="icondolphin" class="meta-normal" width="120" height="120" src="data:image/png;base64,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" alt="">
+            </div>
+        </div>
+        <div style="margin-top: 30px;" class="row text-center">
+            <div class="col-md-12">
+                <button id="enableMetamask" class="btn btn-primary">Connect with Metamask</button>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12">
+                <span id="status"></span>
+            </div>
+        </div>
+		
+	
+        <section class="contract-section hidden">
+            <div style="margin-top: 30px;" class="row text-center">
+                <div class="col-md-12">
+                    <h3>Mint Dolphins</h3>
+                </div>
+            </div>
+			
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <span>Price: 0.02 ETH<i id="priceEach"></i></span>
+                </div>
+            </div>
+			
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <span>Remaining to Mint: <i id="getRemaining"></i></span>
+                </div>
+            </div>
+			
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <span>Current Supply: <i id="getSupply"></i></span>
+                </div>
+            </div>
+			<br>		
+			
+            <div class="row text-center">
+                <div class="col-md-4 offset-4">
+					<label for="select_qty">Select Quantity of Dolphins to Mint</label>
+					<select name="select_qty" id="select_qty">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+					</select>
+					<br>		
+					<button id="btnMintDolphin" class="btn btn-primary">Mint</button></span>
+                </div>
+            </div>
+			
+			
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <span><i id="txResult"></i></span>
+                </div>
+            </div>
+			<br>
+			<br>			
+            <div class="row text-center">
+                <div class="col-md-4 offset-4">
+                    <span>Insert an Address to check Dolphins balance <input id="queryAddress" type="string" class="form-control" style="background:cyan" >
+					<button id="getBalance" class="btn btn-primary">Get Balance of Address</button>
+					</span>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <span><i id="showBalance"></i> Dolphins Owned</span>
+                </div>
+            </div>			
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </section>
+    </div>
+	
+	
+    <script>
+        let currentAccount = null;
+        let web3;
+        let abi = [{"inputs":[{"internalType":"address payable","name":"_beneficiary1","type":"address"},{"internalType":"address payable","name":"_beneficiary2","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"approved","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"operator","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"index","type":"uint256"},{"indexed":true,"internalType":"address","name":"minter","type":"address"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"MAX_PURCHASE","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"RemainingtoMint","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"TOKEN_LIMIT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_approved","type":"address"},{"internalType":"uint256","name":"_tokenId","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"contentHash","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"quantity","type":"uint256"},{"internalType":"address","name":"recipient","type":"address"}],"name":"devMint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_tokenId","type":"uint256"}],"name":"getApproved","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_owner","type":"address"},{"internalType":"address","name":"_operator","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"quantity","type":"uint256"}],"name":"mintDolphin","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"_name","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"_owner","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_from","type":"address"},{"internalType":"address","name":"_to","type":"address"},{"internalType":"uint256","name":"_tokenId","type":"uint256"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_from","type":"address"},{"internalType":"address","name":"_to","type":"address"},{"internalType":"uint256","name":"_tokenId","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_operator","type":"address"},{"internalType":"bool","name":"_approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"_interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"_symbol","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"index","type":"uint256"}],"name":"tokenByIndex","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"_owner","type":"address"},{"internalType":"uint256","name":"_index","type":"uint256"}],"name":"tokenOfOwnerByIndex","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_tokenId","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_from","type":"address"},{"internalType":"address","name":"_to","type":"address"},{"internalType":"uint256","name":"_tokenId","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+        let contractAddress = '0x16e18c26d51d56d344e5d8b39008a80f46bd995e';
+		
+
+        function handleAccountsChanged(accounts) {
+            console.log('Calling HandleChanged')
+
+            if (accounts.length === 0) {
+                console.log('Connect to MetaMask.');
+                $('#enableMetamask').html('Connect with Metamask')
+				$('#getRemaining').html('')
+				$('#getSupply').html('')
+				
+				
+				
+            } else if (accounts[0] !== currentAccount) {
+                currentAccount = accounts[0];				
+                $('#enableMetamask').html('Metamask Connected')
+                $('#status').html(currentAccount)
+				
+                if(currentAccount != null) {
+                    $('#enableMetamask').html('Metamask Connected')					
+                }
+            }
+            console.log('WalletAddress in HandleAccountChanged = ' + currentAccount)
+        }
+
+        function connect() {
+            console.log('Calling connect()')
+            ethereum
+            .request({ method: 'eth_requestAccounts' })
+            .then(handleAccountsChanged)
+            .catch((err) => {
+            if (err.code === 4001) {
+                console.log('Please connect to MetaMask.');
+                $('#status').html('Connection refused')
+				$('#getRemaining').html('')
+				$('#getSupply').html('')
+				
+				
+            } else {
+                console.error(err);
+            }
+            });
+        }
+
+        function detectMetaMask() {
+            if (typeof window.ethereum !== 'undefined') {                
+                return true
+            } else {                
+                return false
+            }
+        }
+
+
+
+
+
+		
+		
+		
+
+		
+		
+		
+		
+		
+		
+		async function getBalance(){
+		
+			var queryaddr = $('#queryAddress').val();
+		
+		    console.log('getBalance')
+            const contractDolph = new web3.eth.Contract(
+                        abi,
+                        contractAddress
+            );
+
+            contractDolph.methods.balanceOf(queryaddr).call().then(function (result) {                
+                $('#showBalance').html(result)
+            });
+		}
+				
+        async function getSupply() {
+            console.log('getSupply')
+            const contractDolph = new web3.eth.Contract(
+                        abi,
+                        contractAddress
+            );
+
+            contractDolph.methods.RemainingtoMint().call().then(function (result) {                
+                $('#getRemaining').html(result)
+            });
+			
+			contractDolph.methods.totalSupply().call().then(function (result) {                
+				$('#getSupply').html(result)
+			});		
+			
+        }
+		
+        async function MintDolphin() {
+            console.log('MintDolphin')
+			
+			const price = 20000000000000000;
+			const gas = 133000;
+
+            dolphinsQuantity = $('#select_qty').val()
+
+            if(dolphinsQuantity.trim() == '') {
+                dolphinsQuantity = 0
+            }
+            if(!isNaN(dolphinsQuantity)) {
+                dolphinsQuantity = parseInt(dolphinsQuantity)   
+            }
+
+            const contractDolph = new web3.eth.Contract(
+                        abi,
+                        contractAddress
+            );
+
+            contractDolph.methods.mintDolphin(dolphinsQuantity).send({from:currentAccount, to:contractAddress, value: price*dolphinsQuantity, gas: gas*dolphinsQuantity })
+			.then(function (result) {
+                console.log(result);
+                $('#txResult').html('Minting of ' + dolphinsQuantity + ' Dolphins, Tx: ' + result)
+            });
+        }		
+    </script>
+	
+	
+	
+    <script>   
+
+
+        $( document ).ready(function() {
+            m = detectMetaMask()
+            if(m) {
+                $('#enableMetamask').attr('disabled',false)
+                connect()
+            } else {
+                $('#enableMetamask').attr('disabled',true)
+            }
+
+            $('#enableMetamask').click(function() {
+                connect()
+            });
+
+            $('#btnMintDolphin').click(function() {
+                MintDolphin();
+				getSupply();
+            });
+			
+            $('#getBalance').click(function() {
+                getBalance()
+            });			
+
+
+            try {			
+				web3 = new Web3(ethereum);
+            } catch (error) {
+                alert(error)
+            }            
+
+            getSupply();
+        })
+    </script>  
+</body>
+</html> 
