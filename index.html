@@ -44,8 +44,7 @@
 					<br>Each trait is handcrafted & each dolphin is unique.
 					<br>Are you ready to join the pod?</span>
                 </div>
-         </div>
-		
+         </div>	
 		
         <div style="margin-top: 30px;" class="row text-center">
             <div class="col-md-12">
@@ -200,9 +199,8 @@
             .catch((err) => {
             if (err.code === 4001) {
                 console.log('Please connect to MetaMask.');
-                $('#status').html('Connection refused')
-				$('#getRemaining').html('')
-				$('#getSupply').html('')
+		$('#getRemaining').html('')
+		$('#getSupply').html('')
 				
 				
             } else {
