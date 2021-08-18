@@ -1,0 +1,4 @@
+- 👋 Hi, I’m @GenerativeArtNI.
+- 👀 I’m interested in C++ OpenGL, Solidity, Ethereum, Dapps.
+- 🌱 I’m currently learning Javascript.
+- 💞️ I’m looking to collaborate on Generative Art.
