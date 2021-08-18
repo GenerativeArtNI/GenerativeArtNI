@@ -199,6 +199,7 @@
             .catch((err) => {
             if (err.code === 4001) {
                 console.log('Please connect to MetaMask.');
+		$('#status').html('')
 		$('#getRemaining').html('')
 		$('#getSupply').html('')
 				
