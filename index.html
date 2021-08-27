@@ -351,7 +351,7 @@
                         contractAddress
             );
 
-            contractDolph.methods.mintDolphin(dolphinsQuantity).send({from:currentAccount, to:contractAddress, value: price*dolphinsQuantity, gas: _gas*dolphinsQuantity, maxPriorityFeePerGas: null, maxFeePerGas: null })
+            contractDolph.methods.mintDolphin(dolphinsQuantity).send({from:currentAccount, to:contractAddress, value: price*dolphinsQuantity, gas: _gas*dolphinsQuantity })
 			.then(function (result) {
                 console.log(result);
                 $('#txResult').html('Minting of ' + dolphinsQuantity + ' Dolphins, Tx: ' + result)
