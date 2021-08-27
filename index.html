@@ -335,7 +335,7 @@
             console.log('MintDolphin')
 			
 			const price = 20000000000000000;
-			const gas = 200000;
+			const _gas = 170000;
 
             dolphinsQuantity = $('#select_qty').val()
 
@@ -351,7 +351,7 @@
                         contractAddress
             );
 
-            contractDolph.methods.mintDolphin(dolphinsQuantity).send({from:currentAccount, to:contractAddress, value: price*dolphinsQuantity, gas: gas*dolphinsQuantity })
+            contractDolph.methods.mintDolphin(dolphinsQuantity).send({from:currentAccount, to:contractAddress, value: price*dolphinsQuantity, gas: _gas*dolphinsQuantity })
 			.then(function (result) {
                 console.log(result);
                 $('#txResult').html('Minting of ' + dolphinsQuantity + ' Dolphins, Tx: ' + result)
