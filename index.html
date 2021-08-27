@@ -366,7 +366,7 @@
             m = detectMetaMask()
             if(m) {
                 $('#enableMetamask').attr('disabled',false)
-		    connect()
+		 //connect()
             } else {
                 $('#enableMetamask').attr('disabled',true)
             }
@@ -386,9 +386,9 @@
 
 
             try {			
-				web3 = new Web3(ethereum);
+		web3 = new Web3(ethereum);
             } catch (error) {
-                alert(error)
+                //alert(error)
             }
 	   getSupply();
 
