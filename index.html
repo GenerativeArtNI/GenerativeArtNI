@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/3.0.0-rc.5/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Degenerate Dolphins</title>
     <link rel="icon" href = "favicon-32.png" sizes="32x32">
@@ -348,6 +348,12 @@
 			
 		const price = 20000000000000000;
 		const _gas = 200000;
+		
+		_gasprice = await web3.eth.getGasPrice();
+		const gasprice = _gasprice;
+		_gasprice = web3.utils.fromWei(_gasprice, 'gwei');
+		_gasprice = parseInt(_gasprice);
+		$('#showgas').html(_gasprice);
 
             dolphinsQuantity = $('#select_qty').val()
 
@@ -360,7 +366,7 @@
 
             const contractDolph = new web3.eth.Contract( abi, contractAddress );
 
-            contractDolph.methods.mintDolphin(dolphinsQuantity).send({from:currentAccount, to:contractAddress, value: price*dolphinsQuantity, gas: _gas*dolphinsQuantity })
+            contractDolph.methods.mintDolphin(dolphinsQuantity).send({from:currentAccount, to:contractAddress, value: price*dolphinsQuantity, gas: _gas*dolphinsQuantity, maxPriorityFeePerGas: 2000000000, maxFeePerGas: 1.5*gasprice })
 			.then(function (result) {
                 console.log(result);
                 $('#txResult').html('Minting of ' + dolphinsQuantity + ' Dolphins, Tx: ' + result)
