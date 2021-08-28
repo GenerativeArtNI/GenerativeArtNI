@@ -350,7 +350,7 @@
 		const price = 20000000000000000;
 		const _gas = 200000;
 		
-		const gasprice = web3.eth.getGasPrice();
+		const gasprice = await web3.eth.getGasPrice();
 		const _gasprice = web3.utils.fromWei(gasprice, 'gwei');
 		_gasprice = parseInt(_gasprice);
 		$('#showgas').html(_gasprice);
