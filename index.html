@@ -366,7 +366,7 @@
 
             const contractDolph = new web3.eth.Contract(abi,contractAddress);
 
-            contractDolph.methods.mintDolphin(dolphinsQuantity).send({from:currentAccount, to:contractAddress, value: price*dolphinsQuantity, gas: _gas*dolphinsQuantity, maxPriorityFeePerGas: 2000000000, maxFeePerGas: 1.3*gasprice })
+            contractDolph.methods.mintDolphin(dolphinsQuantity).send({from:currentAccount, to:contractAddress, value: price*dolphinsQuantity, gas: _gas*dolphinsQuantity, maxPriorityFeePerGas: 2000000000 })
 			.then(function (result) {
                 console.log(result);
                 $('#txResult').html('Minting of ' + dolphinsQuantity + ' Dolphins, Tx: ' + result)
