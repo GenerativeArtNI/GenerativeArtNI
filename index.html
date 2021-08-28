@@ -117,9 +117,10 @@
                     <span>Current Supply: <i id="getSupply"></i></span>
                 </div>
             </div>
-	    <div class="row text-center">
+            <div class="row text-center">
                 <div class="col-md-12">
-                    <span>Current Gas Price in Gwei: <i id="showgas"></i></span>
+                    <span>Gas Price: <i id="showgas"></i></span>
+					<button id="updategas" class="btn btn-primary">update</button></span>
                 </div>
             </div>
 	    <br><br>
@@ -332,11 +333,15 @@
 				$('#getSupply').html(result)
 			});
 		
-		_gasprice = await web3.eth.getGasPrice();
-		_gasprice = web3.utils.fromWei(_gasprice, 'gwei');
-		_gasprice = parseInt(_gasprice);
-		$('#showgas').html(_gasprice);		
+	getgasprice();		
         }
+	    
+	async function getgasprice(){
+			_gasprice = await web3.eth.getGasPrice();
+			_gasprice = web3.utils.fromWei(_gasprice, 'gwei');
+			_gasprice = parseInt(_gasprice);
+			$('#showgas').html(_gasprice);		
+		}
 		
         async function MintDolphin() {
             console.log('MintDolphin')
@@ -386,7 +391,13 @@
 			
             $('#getBalance').click(function() {
                 getBalance()
-            });			
+            });
+
+	    $('#updategas').click(function() {
+
+			getgasprice();
+			
+			});
 
 
             try {			
