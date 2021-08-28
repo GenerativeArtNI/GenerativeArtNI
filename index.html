@@ -334,16 +334,15 @@
 		
 		_gasprice = await web3.eth.getGasPrice();
 		_gasprice = web3.utils.fromWei(_gasprice, 'gwei');
+		_gasprice = parseInt(_gasprice);
 		$('#showgas').html(_gasprice);		
-		
-			
         }
 		
         async function MintDolphin() {
             console.log('MintDolphin')
 			
-			const price = 20000000000000000;
-			const _gas = 170000;
+		const price = 20000000000000000;
+		const _gas = 170000;
 
             dolphinsQuantity = $('#select_qty').val()
 
@@ -354,10 +353,7 @@
                 dolphinsQuantity = parseInt(dolphinsQuantity)   
             }
 
-            const contractDolph = new web3.eth.Contract(
-                        abi,
-                        contractAddress
-            );
+            const contractDolph = new web3.eth.Contract( abi, contractAddress );
 
             contractDolph.methods.mintDolphin(dolphinsQuantity).send({from:currentAccount, to:contractAddress, value: price*dolphinsQuantity, gas: _gas*dolphinsQuantity })
 			.then(function (result) {
